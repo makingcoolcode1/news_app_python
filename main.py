@@ -1,55 +1,61 @@
 
 import requests
 
-print("\n**Welcome to the news app!")
-print("\nPlease visit https://newsapi.org/ to sign up for an API key before proceeding")
+print("\n**Welcome to the news app**")
+print("\nYou will need an API key from https://newsapi.org..... Please use the link to sign up for a free key")
 
-def validate_api_key(api_key):
+
+def validate_key(api_key):
 
     test_url = f"https://newsapi.org/v2/everything?q=NFL&apiKey={api_key}"
 
-    test_request = requests.get(test_url)
+    test_key = requests.get(test_url)
 
-    return test_request.status_code == 200
+    return test_key.status_code == 200
 
-def get_news_data(news_search):
+def search_news(news_search):
 
     URL = f"https://newsapi.org/v2/everything?q={news_search}&apiKey={api_key}"
 
     json = requests.get(URL).json()
 
-    json_itle_1 = json["articles"][0]["title"]
-    json_description_1 = json["articles"][0]["description"]
-    json_url_1 = json["articles"][0]["url"]
+    title_pull_0 = json["articles"][0]["title"]
+    description_pull_0 = json["articles"][0]["description"]
 
-    print("\nTitle: ", json_itle_1)
-    print("\n", json_description_1)
-    print("\nRead More: ", json_url_1)
+    title_pull_1 = json["articles"][1]["title"]
+    description_pull_1 = json["articles"][1]["title"]
+
+    print(f"\nTitle: ", title_pull_0)
+    print(f"\nDescription: ", description_pull_0)
+    print("\nTitle:", title_pull_1)
+    print("\nDescription: ", description_pull_1)
 
 while True:
 
     api_key = input("\nEnter your API key: ")
 
     if api_key.lower() == "exit":
-        print("\nExiting Program.....")
+        print("Exiting Program....")
         break
 
-    if validate_api_key(api_key):
-        print("\nAPI Key Validated!")
+    if (validate_key(api_key)):
+        print("API Key Validated!")
         break
     else:
-        print("\nERROR! Failed to valid API Key. Please enter a valid API key. ")
-        continue
-    
+        print("ERROR! Failed to validate API key..")
 
 
 while True:
-    news_search = input("\nEnter a keyword to search: ")
 
-    if news_search.lower() == "exit":
-        break
+    news_search = input("Enter a keyword: ")
 
     try:
-        (get_news_data(news_search))
+
+        (search_news(news_search))
+    
     except:
-        print("\nERROR! No news articles found!")
+        print("\nERROR: No news articles found.....")
+
+    if news_search.lower() == "exit":
+        print("Exiting Program")
+        break
