@@ -26,10 +26,16 @@ def get_news(news_search):
     title_1 = json["articles"][1]["title"]
     description_1 = json['articles'][1]["description"]
 
+    title_2 = json["articles"][2]["title"]
+    description_2 = json["articles"][2]["description"]
+
     print("Title:", title_0)
     print("\n", description_0)
     print("\nTitle",title_1)
     print("\n", description_1)
+    print("\nTitle:", title_2)
+    print("\n", description_2)
+    
 
 
 while True:
@@ -54,6 +60,7 @@ while True:
     news_search = input("\nPlease enter a city to search ")
 
     if news_search.lower() == "exit":
+        print("Exiting Program....")
         break
 
     try:
