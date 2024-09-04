@@ -1,61 +1,64 @@
 
 import requests
 
-print("\n**Welcome to the news app**")
-print("\nYou will need an API key from https://newsapi.org..... Please use the link to sign up for a free key")
+print("\n**WELCOME TO THE NEWS APP**")
+print("\nTo use this program, please sign up for a free API key at openewsapi.org")
+print("Type 'exit' at anytime to close the program")
 
 
-def validate_key(api_key):
+def validate_api_key(api_key):
 
-    test_url = f"https://newsapi.org/v2/everything?q=NFL&apiKey={api_key}"
+    test_url = f"https://newsapi.org/v2/everything?q=baltimore&apiKey={api_key}"
 
-    test_key = requests.get(test_url)
+    test_request = requests.get(test_url)
 
-    return test_key.status_code == 200
+    return test_request.status_code == 200
 
-def search_news(news_search):
+def get_news(news_search):
 
-    URL = f"https://newsapi.org/v2/everything?q={news_search}&apiKey={api_key}"
+    url = f"https://newsapi.org/v2/everything?q={news_search}&apiKey={api_key}"
 
-    json = requests.get(URL).json()
+    json = requests.get(url).json()
 
-    title_pull_0 = json["articles"][0]["title"]
-    description_pull_0 = json["articles"][0]["description"]
+    title_0 = json["articles"][0]["title"]
+    description_0 = json["articles"][0]["description"]
 
-    title_pull_1 = json["articles"][1]["title"]
-    description_pull_1 = json["articles"][1]["title"]
+    title_1 = json["articles"][1]["title"]
+    description_1 = json['articles'][1]["description"]
 
-    print(f"\nTitle: ", title_pull_0)
-    print(f"\nDescription: ", description_pull_0)
-    print("\nTitle:", title_pull_1)
-    print("\nDescription: ", description_pull_1)
+    print("Title:", title_0)
+    print("\n", description_0)
+    print("\nTitle",title_1)
+    print("\n", description_1)
+
 
 while True:
 
-    api_key = input("\nEnter your API key: ")
+    api_key = input("\nPlease enter your API key: ")
 
+    
     if api_key.lower() == "exit":
         print("Exiting Program....")
         break
 
-    if (validate_key(api_key)):
-        print("API Key Validated!")
+
+    if (validate_api_key(api_key)):
+        print("\nAPI KEY VALID.....Proceeding to News App!\n")
         break
     else:
-        print("ERROR! Failed to validate API key..")
+        print("ERROR! Failed to validate API key. Please check your key input")
 
 
 while True:
 
-    news_search = input("Enter a keyword: ")
-
-    try:
-
-        (search_news(news_search))
-    
-    except:
-        print("\nERROR: No news articles found.....")
+    news_search = input("\nPlease enter a city to search ")
 
     if news_search.lower() == "exit":
-        print("Exiting Program")
         break
+
+    try:
+        get_news(news_search)
+    except:
+        print("No News Articles Found, Please enter another search query.")
+
+
