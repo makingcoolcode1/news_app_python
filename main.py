@@ -41,7 +41,6 @@ def get_news(news_input):
     print("\nRead More: ", link_2)
 
 
-
 while True:
     api_key = input("\nPlease enter your API key: ")
 
@@ -56,12 +55,15 @@ while True:
     else:
         print("\nERROR! Failed to validate API key. Please check your key")
 
+exit_program = False
+
 if not exit_program: 
     while not exit_program:
 
         news_input = input("\nEnter a search query: ")
 
         if news_input.lower() == "exit":
+            exit_program = True
             break
         
         try:
