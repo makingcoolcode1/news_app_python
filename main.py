@@ -1,20 +1,19 @@
 
 import requests
 
-print("\n**Welcome to the news search tool**")
-print("\nYou will require an API key from newsapi.org to access the app")
+print("\n**WELCOME TO THE NEWS APP**")
+print("\nTo get started, you will need an API key from newsapi.org")
 
-def verify_api_key(api_key):
+def api_validation():
 
     test_url = f"https://newsapi.org/v2/everything?q=baltimore&apiKey={api_key}"
 
-    test_request = requests.get(test_url)
+    test_result = requests.get(test_url)
 
-    return test_request.status_code == 200
+    return test_result.status_code == 200
 
-def get_news(news_input):
-
-    URL = f"https://newsapi.org/v2/everything?q={news_input}&apiKey={api_key}"
+def search_news(news_search):
+    URL = f"https://newsapi.org/v2/everything?q={news_search}&apiKey={api_key}"
 
     json = requests.get(URL).json()
 
@@ -41,32 +40,43 @@ def get_news(news_input):
     print("\nRead More: ", link_2)
 
 
-while True:
-    api_key = input("\nPlease enter your API key: ")
-
-    if api_key.lower() == "exit":
-        print("Exiting News App....")
-        exit_program  = True
-        break
-
-    if verify_api_key(api_key):
-        print("\nAPI KEY VALIDATED!")
-        break
-    else:
-        print("\nERROR! Failed to validate API key. Please check your key")
-
 exit_program = False
 
-if not exit_program: 
+
+while True:
+
+    api_key = input("\nPlease Enter your API Key: ")
+
+    if api_key.lower() == "exit":
+        print("\nExiting Program....")
+        exit_program = True
+        break
+    
+
+
+    if api_validation():
+        print("\nAPI Key Validated!")
+        break
+    else:
+        print("\nERROR: Failed to validated API key. Please try another key")
+    
+
+
+
+if not exit_program:
     while not exit_program:
 
-        news_input = input("\nEnter a search query: ")
+        news_search = input("\nPlease enter a search query ")
 
-        if news_input.lower() == "exit":
-            exit_program = True
+        if news_search.lower() == "exit":
+            print("\nExiting Program....")
+            exit_program == True
             break
+    
         
         try:
-            get_news(news_input)
+            search_news(news_search)
         except:
-            print("\nNo News Articles Found, Please try another search")
+            print("ERROR: No news particles found")
+
+
