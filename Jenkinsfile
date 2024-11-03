@@ -8,12 +8,12 @@ pipeline {
         }
         stage('Run Tests') {
             steps {
-                sh '/usr/bin/python -m unittest discover'  // Adjust the path as needed
+                sh '/usr/bin/python3 -m unittest discover'  // Adjust the path as needed
             }
         }
         stage('Build') {
             steps {
-                sh '/usr/bin/python setup.py build'  // Adjust the path as needed
+                sh '/usr/bin/python3 setup.py build'  // Adjust the path as needed
             }
         }
     }
