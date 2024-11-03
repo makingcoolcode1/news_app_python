@@ -1,6 +1,10 @@
 pipeline {
     agent {
-        docker { image 'node:22.11.0-alpine3.20' }
+        docker {
+            image 'node:22.11.0-alpine3.20'
+            // Optionally, you can add:
+            // args '-u root'  // Runs as root user in the container if needed
+        }
     }
     stages {
         stage('Checkout SCM') {
@@ -21,8 +25,7 @@ pipeline {
                 script {
                     def scannerHome = tool 'SonarScanner'
                 }
-                // Replace 'SonarQube' with your actual SonarQube installation name
-                withSonarQubeEnv('SonarQube') {
+                withSonarQubeEnv('SonarQube') {  // Ensure 'SonarQube' matches your Jenkins setup
                     sh "${scannerHome}/bin/sonar-scanner"
                 }
             }
