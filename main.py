@@ -1,82 +1,93 @@
 
 import requests
+import os
 
-print("\n**WELCOME TO THE NEWS APP**")
-print("\nTo get started, you will need an API key from newsapi.org")
+def validateKey(api_key):
 
-def api_validation():
+    testURL = f"https://newsapi.org/v2/everything?q=baltimore&apiKey={api_key}"
 
-    test_url = f"https://newsapi.org/v2/everything?q=baltimore&apiKey={api_key}"
+    test_request = requests.get(testURL).status_code
 
-    test_result = requests.get(test_url)
+    return test_request == 200
 
-    return test_result.status_code == 200
+def get_news_data(news_search, api_key):
+   
+   URL =  f"https://newsapi.org/v2/everything?q={news_search}&apiKey={api_key}"
 
-def search_news(news_search):
-    URL = f"https://newsapi.org/v2/everything?q={news_search}&apiKey={api_key}"
+   json = requests.get(URL).json()
 
-    json = requests.get(URL).json()
-
-    title_0 = json["articles"][0]["title"]
-    description_0 = json["articles"][0]["description"]
-    link_0 = json["articles"][0]["url"]
-
-    title_1 = json["articles"][1]["title"]
-    description_1 = json["articles"][1]["description"]
-    link_1 = json["articles"][1]["url"]
-
-    title_2 = json["articles"][2]["title"]
-    description_2 = json["articles"][2]["description"]
-    link_2 = json["articles"][2]["url"]
-
-    print("\nTitle: ", title_0)
-    print("\n", description_0)
-    print("\nRead More: ", link_0)
-    print("\nTitle: ", title_1)
-    print("\n", description_1)
-    print("\nRead More: ", link_1)
-    print("\nTitle: ", title_2)
-    print("\n", description_2)
-    print("\nRead More: ", link_2)
+   title_0 = json["articles"][0]["title"]
+   title_1 = json["articles"][1]["title"]
+   title_2 = json["articles"][2]["title"]
+   
+   description_0 = json["articles"][0]["description"]
+   description_1 = json["articles"][1]["description"]
+   description_2 = json["articles"][2]["description"]
 
 
-exit_program = False
+   print("\nTitle: ", title_0)
+   print("\n", description_0)
+   
+   print("\nTitle: ", title_1)
+   print("\n", description_1)
+
+   print("\nTitle", title_2)
+   print("\n", description_2)
+
+def clear_screen():
+    if os.name == "nt":
+        os.system('cls')
+    else:
+        os.system("clear")
+
+print("\Welcome to the news app!")
+print("\nTo continue, you will need to have an API key from opennewsapi.com")
+
+apiKeyValid = True
+
+while apiKeyValid:
+    if apiKeyValid:
+
+        api_key = input("\nEnter your API Key: ")
+        
+        if validateKey(api_key):
+            print("\nAPI KEY VALID")
+            break
+        else:
+            print("ERROR! API KEY NOT VALID")
+
+
+        if api_key.lower() == "exit":
+            print("\nExiting Program....")
+            apiKeyValid = False
+            exit()
 
 
 while True:
+    
+    news_search = input("\nPlease enter a search query: ")
 
-    api_key = input("\nPlease Enter your API Key: ")
+    try:
+        get_news_data(news_search, api_key)
+    
+    except:
+        print("\nERROR! No news articles found. Please try another entry.")
 
-    if api_key.lower() == "exit":
+    
+
+    if news_search.lower() == "exit":
         print("\nExiting Program....")
-        exit_program = True
-        break
+        exit()
     
-
-
-    if api_validation():
-        print("\nAPI Key Validated!")
-        break
-    else:
-        print("\nERROR: Failed to validated API key. Please try another key")
-    
-
-
-
-if not exit_program:
-    while not exit_program:
-
-        news_search = input("\nPlease enter a search query ")
-
-        if news_search.lower() == "exit":
-            print("\nExiting Program....")
-            exit_program == True
-            break
-    
+    if news_search.lower() == "clear":
+        confirm = input("\nAre you sure you wan to clearn the screen? (y/n)")
         
-        try:
-            search_news(news_search)
-        except:
-            print("ERROR: No news particles found")
+        if confirm == "y":
+            clear_screen()
+        else:
+            print("Screen Clear Canceled")
+    else:
+        print("\nCommand not recognized")
 
+    
 
