@@ -10,7 +10,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the project...'
-                // Add build commands here, such as `npm install`
+                sh 'pip install requests'
             }
         }
 
