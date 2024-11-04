@@ -19,7 +19,7 @@ pipeline {
                 script {
                     def scannerHome = tool 'SonarScanner'
                 }
-                withSonarQubeEnv('SonarQube') {  // Ensure 'SonarQube' matches your Jenkins setup
+                withSonarQubeEnv('Sonar-scanner-1') {  // Ensure 'SonarQube' matches your Jenkins setup
                     sh "${scannerHome}/bin/sonar-scanner"
                 }
             }
