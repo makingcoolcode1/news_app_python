@@ -10,7 +10,9 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the project...'
-                sh 'pip install requests'
+
+                sh 'python3 -m venv venv'
+                sh './venv/bin/pip install requests'
             }
         }
 
