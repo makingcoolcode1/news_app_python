@@ -10,7 +10,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the project...'
-                sh 'sudo apt install python3-requests'
+                sh 'pip install requests'
             }
         }
 
