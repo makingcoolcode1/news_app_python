@@ -1,11 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:22.11.0-alpine3.20'
-            // Optionally, you can add:
-            // args '-u root'  // Runs as root user in the container if needed
-        }
-    }
+    agent any
     stages {
         stage('Checkout SCM') {
             steps {
