@@ -1,19 +1,33 @@
 pipeline {
-    agent any 
+    agent {
+        docker {
+            image 'node:22.11.0-alpine3.20'
+            // Optionally, you can add:
+            // args '-u root'  // Runs as root user in the container if needed
+        }
+    }
     stages {
         stage('Checkout SCM') {
             steps {
                 checkout scm
             }
         }
-        stage('Run Tests') {
-            steps {
-                sh '/usr/bin/python3 -m unittest discover'  // Adjust the path as needed
-            }
-        }
+
         stage('Build') {
             steps {
-                sh '/usr/bin/python3 setup.py build'  // Adjust the path as needed
+                echo 'Building the project...'
+                // Add build commands here, such as `npm install`
+            }
+        }
+
+        stage('SonarQube Scan') {
+            steps {
+                script {
+                    def scannerHome = tool 'SonarScanner'
+                }
+                withSonarQubeEnv('SonarQube') {  // Ensure 'SonarQube' matches your Jenkins setup
+                    sh "${scannerHome}/bin/sonar-scanner"
+                }
             }
         }
     }
