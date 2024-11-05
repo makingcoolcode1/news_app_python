@@ -36,9 +36,7 @@ def get_news_data(news_search, api_key):
 
 def clear_screen():
     if os.name == "nt":
-        os.system('cls')
-    else:
-        os.system("clear")
+        os.system("cls")
 
 print("\Welcome to the news app!")
 print("\nTo continue, you will need to have an API key from opennewsapi.com")
@@ -66,28 +64,32 @@ while apiKeyValid:
 while True:
     
     news_search = input("\nPlease enter a search query: ")
-
-    try:
-        get_news_data(news_search, api_key)
-    
-    except:
-        print("\nERROR! No news articles found. Please try another entry.")
-
-    
-
-    if news_search.lower() == "exit":
-        print("\nExiting Program....")
-        exit()
-    
+        
     if news_search.lower() == "clear":
         confirm = input("\nAre you sure you wan to clearn the screen? (y/n)")
         
         if confirm == "y":
             clear_screen()
+            
         else:
             print("Screen Clear Canceled")
-    else:
-        print("\nCommand not recognized")
+            continue
+
+
+    elif news_search.lower() == "exit":
+        print("\nExiting Program....")
+        exit()
+
+    if news_search not in ["clear", "exit"]: 
+        try:
+            get_news_data(news_search, api_key)
+        
+        except:
+            print("\nERROR! No news articles found. Please try another entry.")
+
+        
+
+
 
     
 
