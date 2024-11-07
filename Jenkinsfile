@@ -6,13 +6,14 @@ pipeline {
                 checkout scm
             }
         }
+        
 
         stage('Build') {
             steps {
                 echo 'Building the project...'
                 sh '''
                     python3 -m venv venv
-                    . venv/bin/activate
+                    source venv/bin/activate
                     pip install requests
                     '''
                 
@@ -23,7 +24,10 @@ pipeline {
 
             steps{
                 echo 'Running Test Stage'
-                sh 'python3 main.py'
+                sh '''
+                    source venv/vin/activate
+                    python main.py
+                '''
             }
         }
 
