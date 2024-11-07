@@ -18,5 +18,15 @@ pipeline{
                 '''
             }
         }
+
+        stage ('test'){
+            steps{
+                sh '''
+                . venv/bin/activate
+
+                python -m unittest discover  # or pytest if using pytest
+                '''
+            }
+        }
     }
 }
