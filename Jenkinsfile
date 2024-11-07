@@ -13,7 +13,7 @@ pipeline{
                 sh 'python3 -m venv venv'
 
                 sh '''
-                source venv/bin/activate
+                . venv/bin/activate
                 pip install requests
                 '''
             }
