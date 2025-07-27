@@ -41,7 +41,7 @@ while api_key_validation == False:
         elif clear_choice == "n":
             print("Screen Clear Aborted!")
         else:
-            print("ERROR! Invalid Choice")
+            print("\nERROR! Invalid Choice")
         continue
     
 
