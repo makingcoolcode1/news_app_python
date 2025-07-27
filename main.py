@@ -39,7 +39,7 @@ while api_key_validation == False:
         if clear_choice == 'y':
             clear_consol()
         elif clear_choice == "n":
-            print("Screen Clear Aborted!")
+            print("\nScreen Clear Aborted!")
         else:
             print("\nERROR! Invalid Choice")
         continue
